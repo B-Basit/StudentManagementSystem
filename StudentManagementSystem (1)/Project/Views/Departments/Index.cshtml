@@ -1,0 +1,41 @@
+@model IEnumerable<Department>
+@{
+    ViewData["Title"] = "Departments";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold" style="color:#0F2D5A;"><i class="bi bi-building"></i> Departments</h2>
+    <a asp-action="Create" class="btn text-white" style="background-color:#1E5F9E;">
+        <i class="bi bi-plus-circle"></i> Add Department
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Code</th>
+                    <th>Department Name</th>
+                    <th>Total Students</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dept in Model)
+                {
+                    <tr>
+                        <td><span class="badge bg-secondary">@dept.DepartmentCode</span></td>
+                        <td>@dept.DepartmentName</td>
+                        <td>@(dept.Students?.Count() ?? 0)</td>
+                        <td class="text-end">
+                            <a asp-action="Details" asp-route-id="@dept.DepartmentId" class="btn btn-sm btn-outline-info"><i class="bi bi-eye"></i></a>
+                            <a asp-action="Edit" asp-route-id="@dept.DepartmentId" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                            <a asp-action="Delete" asp-route-id="@dept.DepartmentId" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

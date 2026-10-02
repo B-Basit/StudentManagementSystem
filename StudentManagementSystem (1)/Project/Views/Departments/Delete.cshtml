@@ -1,0 +1,18 @@
+@model Department
+@{
+    ViewData["Title"] = "Delete Department";
+}
+
+<h2 class="fw-bold mb-4 text-danger"><i class="bi bi-exclamation-triangle"></i> Delete Department</h2>
+
+<div class="card border-0 shadow-sm border-danger">
+    <div class="card-body">
+        <p class="lead">Are you sure you want to delete <strong>@Model.DepartmentName</strong>?</p>
+        <form asp-action="Delete" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="DepartmentId" />
+            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Yes, Delete</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+@model IEnumerable<Enrollment>
+@{
+    ViewData["Title"] = "Enrollments";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold" style="color:#0F2D5A;"><i class="bi bi-journal-check"></i> Enrollments</h2>
+    <a asp-action="Create" class="btn text-white" style="background-color:#1E5F9E;">
+        <i class="bi bi-plus-circle"></i> New Enrollment
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-2">
+            <div class="col-md-5">
+                <select name="courseFilter" class="form-select" asp-items="ViewBag.Courses">
+                    <option value="">-- All Courses --</option>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <select name="semesterFilter" class="form-select">
+                    <option value="">-- All Semesters --</option>
+                    @foreach (var sem in ViewBag.Semesters)
+                    {
+                        <option value="@sem" selected="@(sem == ViewBag.SemesterFilter)">@sem</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-outline-secondary w-100">
+                    <i class="bi bi-funnel"></i> Filter
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Reg #</th>
+                    <th>Student Name</th>
+                    <th>Course</th>
+                    <th>Semester</th>
+                    <th>Grade</th>
+                    <th>Enrolled On</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var e in Model)
+                {
+                    <tr>
+                        <td>@e.Student?.RegistrationNumber</td>
+                        <td>@e.Student?.FullName</td>
+                        <td>@e.Course?.CourseName <span class="text-muted">(@e.Course?.CourseCode)</span></td>
+                        <td>@e.Semester</td>
+                        <td>
+                            @if (string.IsNullOrEmpty(e.Grade))
+                            {
+                                <span class="badge bg-warning text-dark">In Progress</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-info">@e.Grade</span>
+                            }
+                        </td>
+                        <td>@e.EnrollmentDate.ToString("dd MMM yyyy")</td>
+                        <td class="text-end">
+                            <a asp-action="Edit" asp-route-id="@e.EnrollmentId" class="btn btn-sm btn-outline-primary" title="Edit Grade">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@e.EnrollmentId" class="btn btn-sm btn-outline-danger" title="Remove">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="7" class="text-center text-muted py-4">No enrollments found. Click "New Enrollment" to add one.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

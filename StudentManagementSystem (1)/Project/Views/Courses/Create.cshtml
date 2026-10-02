@@ -1,0 +1,51 @@
+@model Course
+@{
+    ViewData["Title"] = "Add Course";
+}
+
+<h2 class="fw-bold mb-4" style="color:#0F2D5A;"><i class="bi bi-journal-plus"></i> Add Course</h2>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="CourseName" class="form-label"></label>
+                    <input asp-for="CourseName" class="form-control" />
+                    <span asp-validation-for="CourseName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="CourseCode" class="form-label"></label>
+                    <input asp-for="CourseCode" class="form-control" placeholder="e.g. CS101" />
+                    <span asp-validation-for="CourseCode" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Credits" class="form-label"></label>
+                    <input asp-for="Credits" class="form-control" type="number" min="1" max="6" />
+                    <span asp-validation-for="Credits" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="DepartmentId" class="form-label"></label>
+                    <select asp-for="DepartmentId" class="form-select" asp-items="ViewBag.Departments">
+                        <option value="">-- Select Department --</option>
+                    </select>
+                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn text-white" style="background-color:#1E5F9E;">
+                    <i class="bi bi-check-circle"></i> Save
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

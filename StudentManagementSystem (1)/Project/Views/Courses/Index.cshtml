@@ -1,0 +1,43 @@
+@model IEnumerable<Course>
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold" style="color:#0F2D5A;"><i class="bi bi-journal-bookmark-fill"></i> Courses</h2>
+    <a asp-action="Create" class="btn text-white" style="background-color:#1E5F9E;">
+        <i class="bi bi-plus-circle"></i> Add Course
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Code</th>
+                    <th>Course Name</th>
+                    <th>Credits</th>
+                    <th>Department</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var course in Model)
+                {
+                    <tr>
+                        <td><span class="badge bg-secondary">@course.CourseCode</span></td>
+                        <td>@course.CourseName</td>
+                        <td>@course.Credits</td>
+                        <td>@course.Department?.DepartmentName</td>
+                        <td class="text-end">
+                            <a asp-action="Details" asp-route-id="@course.CourseId" class="btn btn-sm btn-outline-info"><i class="bi bi-eye"></i></a>
+                            <a asp-action="Edit" asp-route-id="@course.CourseId" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                            <a asp-action="Delete" asp-route-id="@course.CourseId" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

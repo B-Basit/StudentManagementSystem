@@ -1,0 +1,28 @@
+@model Enrollment
+@{
+    ViewData["Title"] = "Remove Enrollment";
+}
+
+<h2 class="fw-bold mb-4 text-danger"><i class="bi bi-exclamation-triangle"></i> Remove Enrollment</h2>
+
+<div class="card border-0 shadow-sm border-danger">
+    <div class="card-body">
+        <p class="lead">Are you sure you want to remove this enrollment record?</p>
+
+        <table class="table table-borderless">
+            <tr><th style="width:200px;">Student</th><td>@Model.Student?.FullName (@Model.Student?.RegistrationNumber)</td></tr>
+            <tr><th>Course</th><td>@Model.Course?.CourseName (@Model.Course?.CourseCode)</td></tr>
+            <tr><th>Semester</th><td>@Model.Semester</td></tr>
+            <tr><th>Grade</th><td>@(Model.Grade ?? "In Progress")</td></tr>
+        </table>
+
+        <form asp-action="Delete" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="EnrollmentId" />
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Yes, Remove
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

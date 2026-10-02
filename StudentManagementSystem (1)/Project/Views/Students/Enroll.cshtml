@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Enroll Student";
+    var student = ViewBag.Student as Student;
+}
+
+<h2 class="fw-bold mb-4" style="color:#0F2D5A;"><i class="bi bi-journal-plus"></i> Enroll Student in Course</h2>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <p><strong>Student:</strong> @student.FullName (@student.RegistrationNumber)</p>
+        <hr />
+
+        <form asp-action="Enroll" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="studentId" value="@student.StudentId" />
+
+            <div class="mb-3">
+                <label class="form-label">Course</label>
+                <select name="courseId" class="form-select" asp-items="ViewBag.Courses" required>
+                    <option value="">-- Select Course --</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Semester</label>
+                <input type="text" name="semester" class="form-control" placeholder="e.g. Fall 2026" required />
+            </div>
+
+            <button type="submit" class="btn text-white" style="background-color:#1E5F9E;">
+                <i class="bi bi-check-circle"></i> Enroll
+            </button>
+            <a asp-action="Details" asp-route-id="@student.StudentId" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

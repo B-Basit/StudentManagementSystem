@@ -1,0 +1,53 @@
+@model Course
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<h2 class="fw-bold mb-4" style="color:#0F2D5A;"><i class="bi bi-journal-bookmark"></i> @Model.CourseName</h2>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <table class="table table-borderless mb-0">
+                    <tr><th>Code</th><td>@Model.CourseCode</td></tr>
+                    <tr><th>Credits</th><td>@Model.Credits</td></tr>
+                    <tr><th>Department</th><td>@Model.Department?.DepartmentName</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header text-white" style="background-color:#0F2D5A;">
+                <i class="bi bi-people"></i> Enrolled Students
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light"><tr><th>Reg #</th><th>Name</th><th>Semester</th><th>Grade</th></tr></thead>
+                    <tbody>
+                        @if (Model.Enrollments != null && Model.Enrollments.Any())
+                        {
+                            @foreach (var e in Model.Enrollments)
+                            {
+                                <tr>
+                                    <td>@e.Student?.RegistrationNumber</td>
+                                    <td>@e.Student?.FullName</td>
+                                    <td>@e.Semester</td>
+                                    <td>@(e.Grade ?? "In Progress")</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="4" class="text-center text-muted py-3">No students enrolled yet.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-outline-secondary mt-3">Back to List</a>

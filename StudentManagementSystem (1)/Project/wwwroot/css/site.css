@@ -1,0 +1,25 @@
+body {
+    background-color: #F8FAFC;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.table th {
+    font-weight: 600;
+    color: #475569;
+}
+
+.navbar-brand {
+    font-size: 1.3rem;
+}
+
+.btn {
+    border-radius: 6px;
+}
+
+footer {
+    background-color: #fff;
+}

@@ -1,0 +1,111 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2 class="mb-4 fw-bold" style="color:#0F2D5A;"><i class="bi bi-speedometer2"></i> Dashboard</h2>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100" style="border-left: 5px solid #1E5F9E;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="text-muted mb-1">Total Students</p>
+                        <h3 class="fw-bold">@ViewBag.TotalStudents</h3>
+                    </div>
+                    <i class="bi bi-people-fill fs-1" style="color:#1E5F9E;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100" style="border-left: 5px solid #166534;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="text-muted mb-1">Active Students</p>
+                        <h3 class="fw-bold">@ViewBag.ActiveStudents</h3>
+                    </div>
+                    <i class="bi bi-person-check-fill fs-1" style="color:#166534;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100" style="border-left: 5px solid #B45309;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="text-muted mb-1">Total Courses</p>
+                        <h3 class="fw-bold">@ViewBag.TotalCourses</h3>
+                    </div>
+                    <i class="bi bi-journal-bookmark-fill fs-1" style="color:#B45309;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100" style="border-left: 5px solid #8B5CF6;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="text-muted mb-1">Departments</p>
+                        <h3 class="fw-bold">@ViewBag.TotalDepartments</h3>
+                    </div>
+                    <i class="bi bi-building fs-1" style="color:#8B5CF6;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-5">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header text-white" style="background-color:#0F2D5A;">
+                <i class="bi bi-pie-chart-fill"></i> Students by Department
+            </div>
+            <div class="card-body">
+                <table class="table table-sm mb-0">
+                    @foreach (var dept in ViewBag.StudentsByDepartment)
+                    {
+                        <tr>
+                            <td>@dept.DepartmentName</td>
+                            <td class="text-end fw-bold">@dept.Count</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header text-white d-flex justify-content-between" style="background-color:#0F2D5A;">
+                <span><i class="bi bi-clock-history"></i> Recently Added Students</span>
+                <a asp-controller="Students" asp-action="Index" class="text-white text-decoration-none">View All &rarr;</a>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Reg #</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var s in ViewBag.RecentStudents)
+                        {
+                            <tr>
+                                <td>@s.RegistrationNumber</td>
+                                <td>@s.FullName</td>
+                                <td>@s.Department?.DepartmentName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

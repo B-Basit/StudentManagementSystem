@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "New Enrollment";
+}
+
+<h2 class="fw-bold mb-4" style="color:#0F2D5A;"><i class="bi bi-journal-plus"></i> New Enrollment</h2>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Student</label>
+                    <select name="studentId" class="form-select" asp-items="ViewBag.Students" required>
+                        <option value="">-- Select Student --</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Course</label>
+                    <select name="courseId" class="form-select" asp-items="ViewBag.Courses" required>
+                        <option value="">-- Select Course --</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Semester</label>
+                    <input type="text" name="semester" class="form-control" placeholder="e.g. Fall 2026" required />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Grade (optional)</label>
+                    <input type="text" name="grade" class="form-control" placeholder="Leave blank if in progress" />
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn text-white" style="background-color:#1E5F9E;">
+                    <i class="bi bi-check-circle"></i> Save Enrollment
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

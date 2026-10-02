@@ -1,0 +1,37 @@
+@model Enrollment
+@{
+    ViewData["Title"] = "Edit Enrollment";
+}
+
+<h2 class="fw-bold mb-4" style="color:#0F2D5A;"><i class="bi bi-pencil-square"></i> Edit Enrollment</h2>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <p><strong>Student:</strong> @Model.Student?.FullName (@Model.Student?.RegistrationNumber)</p>
+        <p><strong>Course:</strong> @Model.Course?.CourseName (@Model.Course?.CourseCode)</p>
+        <hr />
+
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.EnrollmentId" />
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Semester</label>
+                    <input type="text" name="semester" class="form-control" value="@Model.Semester" required />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Grade</label>
+                    <input type="text" name="grade" class="form-control" value="@Model.Grade" placeholder="Leave blank if in progress" />
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn text-white" style="background-color:#1E5F9E;">
+                    <i class="bi bi-check-circle"></i> Update
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
